@@ -6,7 +6,7 @@ import os
 
 # --- IMPORTANT: Import your nids_core module ---
 try:
-    import nids_core
+    from utils import nids_core
 except ImportError as e:
     st.error(f"Could not import nids_core.py. Make sure it's in the same directory and contains no syntax errors: {e}")
     st.stop()
@@ -53,7 +53,7 @@ if uploaded_file is not None:
             # input_df['Label_Standardized'] = input_df['Label_Standardized'].replace({"INFILTRATE": "INFILTRATION"})
 
 
-        # Check if the nids_core.py module and its prediction function are ready
+        # Check if the nids_core module and its prediction function are ready
         if hasattr(nids_core, 'predict_intrusion') and callable(nids_core.predict_intrusion):
             st.info("Running anomaly detection... This may take a moment for large files.")
             
@@ -129,4 +129,3 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"An error occurred during file processing or prediction: {e}")
         st.warning("Please ensure your CSV file format matches the expected input for the model, and all necessary features are present. Also check the `server.maxMessageSize` config option if the file is large.")
-
